@@ -4,15 +4,21 @@ select  rtrim(course) + '-' + cast(course_section as varchar(25)) course,
         grade,
         c.first_name,
         c.last_name,
-        d.login_id,
-        d.email
+        lower(d.login_id),
+        d.email,
+        primary_staff_id,
+        g.first_name,
+        g.last_name,
+        lower(g.login_id),
+        g.email
 
 from    schd_ms a,
         schd_stu_course b,
         reg c,
         reg_contact d,
         reg_stu_contact e,
-        schd_ms_session f
+        schd_ms_session f,
+        reg_staff g
 
 where   course in ('1237LA','1232LA','1232EN','1228EN','1240EN','1200EN','1238EN','1225EL')
         and school_year = 2016
@@ -24,3 +30,4 @@ where   course in ('1237LA','1232LA','1232EN','1228EN','1240EN','1200EN','1238EN
         and c.student_id = e.student_id
         and e.contact_type = 'm'
         and a.section_key = f.section_key
+        and f.primary_staff_id = g.staff_id
