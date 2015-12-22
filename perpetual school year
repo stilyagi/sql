@@ -1,0 +1,5 @@
+school_year = (
+  select school_year 
+  from reg_district
+  where district = 10093
+  );
