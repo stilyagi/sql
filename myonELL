@@ -1,0 +1,26 @@
+select  rtrim(course) + '-' + cast(course_section as varchar(25)) course,
+        a.section_key,
+        b.student_id,
+        grade,
+        c.first_name,
+        c.last_name,
+        d.login_id,
+        d.email
+
+from    schd_ms a,
+        schd_stu_course b,
+        reg c,
+        reg_contact d,
+        reg_stu_contact e,
+        schd_ms_session f
+
+where   course in ('1237LA','1232LA','1232EN','1228EN','1240EN','1200EN','1238EN','1225EL')
+        and school_year = 2016
+        and summer_school = 'n'
+        and a.section_key = b.section_key
+        and course_status <> 'n'
+        and b.student_id = c.student_id
+        and d.contact_id = e.contact_id
+        and c.student_id = e.student_id
+        and e.contact_type = 'm'
+        and a.section_key = f.section_key
